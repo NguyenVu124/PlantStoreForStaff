@@ -36,6 +36,7 @@ public class Plant extends AppCompatActivity {
     PlantAdapter plantAdapter;
     ArrayList<PlantModel> list;
     FloatingActionButton btnAdd;
+    String plantId="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class Plant extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_addNewPlant);
         rvPlant = findViewById(R.id.rv_all);
         rvPlant.hasFixedSize();
-        rvPlant.setLayoutManager(new GridLayoutManager(this, 2));
+        rvPlant.setLayoutManager(new GridLayoutManager(this, 1));
 
         list = new ArrayList<>();
         plantAdapter = new PlantAdapter(this, list);
@@ -99,11 +100,32 @@ public class Plant extends AppCompatActivity {
 //                Toast.makeText(Plant.this, "delete",Toast.LENGTH_SHORT).show();
                 return true;
             case 132:
-//                updateCategory();
+                updatePlant(item);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void updatePlant(MenuItem item) {
+        int a = item.getGroupId();
+        Query categoryQuery = reference.orderByChild("name").equalTo(list.get(a).getName());
+        categoryQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    plantId = dataSnapshot.getRef().getKey();
+                    Intent sender = new Intent(Plant.this, UpdatePlant.class);
+                    sender.putExtra("plantId", plantId);
+                    startActivityForResult(sender, 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
     }
 
     private void deletePlant(MenuItem item){

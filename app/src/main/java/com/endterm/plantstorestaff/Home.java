@@ -59,7 +59,15 @@ public class Home extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
-                Toast.makeText(Home.this, "test", Toast.LENGTH_SHORT).show();
+                if(item.getItemId() == R.id.nav_home){
+                    Toast.makeText(Home.this, "home", Toast.LENGTH_SHORT).show();
+                }
+                if(item.getItemId() == R.id.nav_order){
+                    Toast.makeText(Home.this, "cart", Toast.LENGTH_SHORT).show();
+                }
+                if(item.getItemId() == R.id.nav_logout){
+                    Toast.makeText(Home.this, "logout", Toast.LENGTH_SHORT).show();
+                }
 
                 return false;
             }
@@ -92,7 +100,7 @@ public class Home extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_add);
         rvAll = findViewById(R.id.rv_all);
         rvAll.hasFixedSize();
-        rvAll.setLayoutManager(new GridLayoutManager(this, 2));
+        rvAll.setLayoutManager(new GridLayoutManager(this, 1));
 
         list = new ArrayList<>();
         adapter = new Adapter(this, list);
@@ -204,6 +212,23 @@ public class Home extends AppCompatActivity {
     }
 
     private void updateCategory(MenuItem item){
-        Toast.makeText(this,"Update category", Toast.LENGTH_SHORT).show();
+        int a = item.getGroupId();
+        Query categoryQuery = category.orderByChild("name").equalTo(list.get(a).getName());
+        categoryQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    categoryId = dataSnapshot.getRef().getKey();
+                    Intent sender = new Intent(Home.this, UpdateCategory.class);
+                    sender.putExtra("categoryId", categoryId);
+                    startActivityForResult(sender, 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
     }
 }

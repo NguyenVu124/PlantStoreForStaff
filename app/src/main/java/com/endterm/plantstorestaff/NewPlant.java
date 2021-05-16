@@ -66,7 +66,6 @@ public class NewPlant extends AppCompatActivity {
                 db.child("Plant").child(String.valueOf(lastId+1)).setValue(plant);
                 setResult(1);
                 finish();
-//                Toast.makeText(NewPlant.this, ""+lastId, Toast.LENGTH_SHORT).show();
             }
         });
     }
