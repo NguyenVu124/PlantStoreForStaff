@@ -104,17 +104,29 @@ public class Plant extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-
     }
 
     private void deletePlant(MenuItem item){
         int a = item.getGroupId();
-        Toast.makeText(this,"Delete plant "+a, Toast.LENGTH_SHORT).show();
-//        reference.child(String.valueOf(a+1)).removeValue();
-//        plantAdapter = new plantAdapter(this, list);
-//        rvAll.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-        finish();
-        startActivity(getIntent());
+        Query plantQuery = reference.orderByChild("name").equalTo(list.get(a).getName());
+        plantQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    dataSnapshot.getRef().removeValue();
+                    plantAdapter = new PlantAdapter(Plant.this, list);
+                    rvPlant.setAdapter(plantAdapter);
+                    plantAdapter.notifyDataSetChanged();
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+
     }
 }

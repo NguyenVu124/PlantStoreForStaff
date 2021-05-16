@@ -2,7 +2,11 @@ package com.endterm.plantstorestaff;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import com.endterm.plantstorestaff.Model.Category;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,11 +43,51 @@ public class Home extends AppCompatActivity {
     ArrayList<Category> list;
     FloatingActionButton btnAdd;
     String categoryId="";
-
+    private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_gallery);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
+                Toast.makeText(Home.this, "test", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        // Respond when the drawer is opened
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
 
         btnAdd = findViewById(R.id.btn_add);
         rvAll = findViewById(R.id.rv_all);
@@ -79,6 +124,20 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Toast.makeText(Home.this, "test"+item.getItemId(), Toast.LENGTH_SHORT).show();
+        Log.i("test","test"+item.getItemId());
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         finish();
@@ -101,7 +160,7 @@ public class Home extends AppCompatActivity {
                 deleteCategory(item);
                 return true;
             case 122:
-                updateCategory();
+                updateCategory(item);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -144,7 +203,7 @@ public class Home extends AppCompatActivity {
         startActivity(getIntent());
     }
 
-    private void updateCategory(){
+    private void updateCategory(MenuItem item){
         Toast.makeText(this,"Update category", Toast.LENGTH_SHORT).show();
     }
 }
