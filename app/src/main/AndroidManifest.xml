@@ -12,7 +12,9 @@
         <activity android:name=".NewCategory"></activity>
         <activity android:name=".NewPlant" />
         <activity android:name=".Plant" />
-        <activity android:name=".Home" />
+        <activity android:name=".Home"
+            android:label="@string/title_activity_home"
+           />
         <activity android:name=".SignIn" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -21,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>
