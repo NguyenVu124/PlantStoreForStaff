@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UpdatePlant"></activity>
+        <activity android:name=".PlantOfOrder"></activity>
+        <activity android:name=".OrderList" />
+        <activity android:name=".UpdatePlant" />
         <activity android:name=".UpdateCategory" />
         <activity android:name=".NewCategory" />
         <activity android:name=".NewPlant" />

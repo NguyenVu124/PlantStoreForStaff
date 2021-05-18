@@ -49,11 +49,8 @@ public class NewPlant extends AppCompatActivity {
                     lastId =  Integer.parseInt(child.getKey());
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {

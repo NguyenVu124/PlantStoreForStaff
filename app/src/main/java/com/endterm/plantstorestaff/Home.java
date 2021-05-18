@@ -63,7 +63,8 @@ public class Home extends AppCompatActivity {
                     Toast.makeText(Home.this, "home", Toast.LENGTH_SHORT).show();
                 }
                 if(item.getItemId() == R.id.nav_order){
-                    Toast.makeText(Home.this, "cart", Toast.LENGTH_SHORT).show();
+                    Intent sender = new Intent(Home.this, OrderList.class);
+                    startActivity(sender);
                 }
                 if(item.getItemId() == R.id.nav_logout){
                     Toast.makeText(Home.this, "logout", Toast.LENGTH_SHORT).show();

@@ -31,7 +31,6 @@ public class Plant extends AppCompatActivity {
     private TextView tvTest;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference("Plant");
-    ArrayList<String> test = new ArrayList<>();
     RecyclerView rvPlant;
     PlantAdapter plantAdapter;
     ArrayList<PlantModel> list;
