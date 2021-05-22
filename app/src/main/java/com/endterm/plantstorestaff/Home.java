@@ -67,9 +67,11 @@ public class Home extends AppCompatActivity {
                     startActivity(sender);
                 }
                 if(item.getItemId() == R.id.nav_logout){
-                    Toast.makeText(Home.this, "logout", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Home.this, MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                    finish();
                 }
-
                 return false;
             }
         });
@@ -135,8 +137,7 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Toast.makeText(Home.this, "test"+item.getItemId(), Toast.LENGTH_SHORT).show();
-        Log.i("test","test"+item.getItemId());
+        Toast.makeText(Home.this, "test"+item.getItemId(), Toast.LENGTH_SHORT).show();;
 
         switch (item.getItemId()) {
             case android.R.id.home:

@@ -8,7 +8,7 @@
         <item
             android:id="@+id/nav_order"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Cart" />
+            android:title="Order List" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_slideshow"

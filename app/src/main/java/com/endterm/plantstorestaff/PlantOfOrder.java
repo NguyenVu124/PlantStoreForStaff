@@ -40,8 +40,8 @@ public class PlantOfOrder extends AppCompatActivity {
         rvPlantOrder.setLayoutManager(new GridLayoutManager(this, 1));
         list = new ArrayList<>();
         Intent receive = getIntent();
-        ArrayList<HashMap<String,PlantOrder>> a = (ArrayList<HashMap<String,PlantOrder>>)getIntent().getSerializableExtra("BUNDLE");
-        for (HashMap<String,PlantOrder> hashMap:a){
+        ArrayList<HashMap<String,PlantOrder>> plants = (ArrayList<HashMap<String,PlantOrder>>)getIntent().getSerializableExtra("BUNDLE");
+        for (HashMap<String,PlantOrder> hashMap:plants){
             PlantOrder plantOrder = new PlantOrder(hashMap.values().toArray()[1].toString(),hashMap.values().toArray()[3].toString(),hashMap.values().toArray()[2].toString(),hashMap.values().toArray()[0].toString());
             list.add(plantOrder);
         }
